@@ -64,9 +64,9 @@ Route::get('student/{id}/{class}', function ($id, $class) {
 // Route::get('about-codeshetra', [StudentController::class, 'about']);
 
 // group controllers
-Route::controller(StudentController::class)->group(function(){
+Route::controller(StudentController::class)->group(function () {
     Route::get('cadet/{id}/{name}', 'index');
-    Route::get('about-codeshetra', 'about'); 
+    Route::get('about-codeshetra', 'about');
 });
 
 // invokable controller route
@@ -94,6 +94,18 @@ Route::get('update-teacher/{id}', [TeacherController::class, 'update']);
 
 // deleting a teacher by id
 Route::get('delete-teacher/{id}', [TeacherController::class, 'delete']);
+
+// adding student data - using query builder
+Route::get('add-student', [StudentController::class, 'addData']);
+
+// fetching all students data using query builder
+Route::get('get-students', [StudentController::class, 'getData']);
+
+// updating student data using query builder
+Route::get('update-student', [StudentController::class, 'updateData']);
+
+// deleting student data using query builder
+Route::get('delete-student', [StudentController::class, 'deleteData']);
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

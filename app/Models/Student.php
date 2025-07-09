@@ -9,4 +9,7 @@ class Student extends Model
 {
     //
     use HasFactory;
+
+    // hiding particular colums from the public view
+    protected $hidden = ['email', 'DOB'];
 }
