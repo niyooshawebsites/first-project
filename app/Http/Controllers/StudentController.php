@@ -192,9 +192,18 @@ class StudentController extends Controller
     public function whereClause4()
     {
         // $result = Student::where('age', '>', 18)->where('age', '<', 25)->count();
-
         // $result = Student::whereBetween('age', [19, 24])->count();
         $result = Student::whereNotBetween('age', [19, 24])->count();
+        return response()->json($result, 200)->withHeaders([
+            'Content-Type' => 'application/json',
+        ]);
+    }
+
+    // finding mutiple records using whereIn clause
+    public function whereinClause()
+    {
+        // $result = Student::whereIn('id', [1, 2, 3, 4, 5])->get();
+        $result = Student::whereNotIn('id', [1, 2, 3, 4, 5])->get();
         return response()->json($result, 200)->withHeaders([
             'Content-Type' => 'application/json',
         ]);

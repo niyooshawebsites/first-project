@@ -119,5 +119,8 @@ Route::get('where-clause-3', [StudentController::class, 'whereclase3']);
 // getting all students between 18 and 25 year
 Route::get('where-clause-4', [StudentController::class, 'whereClause4']);
 
+// getting multiple records using the whereIn clause
+Route::get('where-in-clause', [StudentController::class, 'whereinClause']);
+
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
