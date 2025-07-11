@@ -107,5 +107,17 @@ Route::get('update-student', [StudentController::class, 'updateData']);
 // deleting student data using query builder
 Route::get('delete-student', [StudentController::class, 'deleteData']);
 
+// getting all students where the agae is less than 20
+Route::get('where-clause-1', [StudentController::class, 'whereClase1']);
+
+// getting all students where the age is less than 20 or female
+Route::get('where-clause-2', [StudentController::class, 'whereClase2']);
+
+// getting all the students where age is less than 20 and marks is between 50 and 60
+Route::get('where-clause-3', [StudentController::class, 'whereclase3']);
+
+// getting all students between 18 and 25 year
+Route::get('where-clause-4', [StudentController::class, 'whereClause4']);
+
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

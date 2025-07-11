@@ -143,7 +143,60 @@ class StudentController extends Controller
     // function for deleting student data
     public function deleteData()
     {
-        $items = DB::table('students')->where('id', 100)->delete();
+        // ----------------QUERY BUILDER----------------
+        // deleting student data using query builder
+        // $items = DB::table('students')->where('id', 100)->delete();
+
+        // ----------------ELOQUENT ORM----------------
+        $result = Student::findorFail(55);
+        $result->delete();
         return response('Student data deleted successfully', 200);
+    }
+
+    // and where clause example
+    public function whereClase1()
+    {
+        // fetching all students where age is less than 20
+        $result1 = Student::where('age', '<', 20)->count();
+        $result2 = Student::where('age', '<', 20)->where('gender', 'm')->get();
+        return response()->json([
+            'count' => $result1,
+            'students' => $result2
+        ], 200)->withHeaders([
+            'content-type' => 'application/json',
+            'foo' => 'bar',
+        ]);
+    }
+
+    // orWhre clause example
+    public function whereClase2()
+    {
+        // fetching all students where age is less than 20 or female
+        $result = Student::where('age', '<', 20)->orWhere('gender', 'f')->get();
+        return response()->json($result, 200)->withHeaders([
+            'Content-Type' => 'application/json'
+        ]);
+    }
+
+    public function whereClase3()
+    {
+        $result = Student::where('age', '>', 25)->where(function ($query) {
+            $query->where('score', '>', 50)->orWhere('score', '<', 60);
+        })->get();
+
+        return response()->json($result, 200)->withHeaders([
+            'Content-Type' => 'application/json'
+        ]);
+    }
+
+    public function whereClause4()
+    {
+        // $result = Student::where('age', '>', 18)->where('age', '<', 25)->count();
+
+        // $result = Student::whereBetween('age', [19, 24])->count();
+        $result = Student::whereNotBetween('age', [19, 24])->count();
+        return response()->json($result, 200)->withHeaders([
+            'Content-Type' => 'application/json',
+        ]);
     }
 }
