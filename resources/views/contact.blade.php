@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 
 @section('main')
-    <main class="my-5">
-        <section>
+    <section>
+        <main class="my-5">
             <div class="row">
                 <div class="col-md-3 bg-success">
                     @include('subviews.sidebar')
@@ -23,6 +23,6 @@
                     </section>
                 </div>
             </div>
-    </main>
+        </main>
     </section>
 @endsection

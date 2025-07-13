@@ -4,6 +4,7 @@ use App\Http\Controllers\FirstTestController;
 use App\Http\Controllers\SecondTestController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -105,7 +106,7 @@ Route::get('get-students', [StudentController::class, 'getData']);
 Route::get('update-student', [StudentController::class, 'updateData']);
 
 // deleting student data using query builder
-Route::get('delete-student', [StudentController::class, 'deleteData']);
+Route::get('delete-student/{id}', [StudentController::class, 'deleteData']);
 
 // getting all students where the agae is less than 20
 Route::get('where-clause-1', [StudentController::class, 'whereClase1']);
@@ -121,6 +122,51 @@ Route::get('where-clause-4', [StudentController::class, 'whereClause4']);
 
 // getting multiple records using the whereIn clause
 Route::get('where-in-clause', [StudentController::class, 'whereinClause']);
+
+Route::get('whereclause-5', [StudentController::class, 'whereClause5']);
+
+// get males
+Route::get('get-males', [StudentController::class, 'getSpecificMale']);
+
+// get females
+Route::get('get-females', [StudentController::class, 'getSpecificFemale']);
+
+// get trashed students
+Route::get('get-trashed-students', [StudentController::class, 'getTrashedStudents']);
+
+// get all students
+Route::get('get-all-students', [StudentController::class, 'getAllStudents']);
+
+// restore trashed students
+Route::get('restore-trashed-students/{id}', [StudentController::class, 'restoreTrashedStudents']);
+
+// force delete (delete permanently) students
+Route::get('force-delete-students/{id}', [StudentController::class, 'forceDeleteStudents']);
+
+// force deelte trashed students
+Route::get('force-delete-trashed-students/{id}', [StudentController::class, 'forceDeleteTrashedStudents']);
+
+// creating a crud aplication using the student model
+Route::prefix('students')->controller(StudentController::class)->group(function () {
+    Route::get('all', 'readStudents');
+
+    // ADDING A STUDENT
+    // view the add form
+    Route::view('add', 'addStudent');
+    // create
+    Route::post('create', 'createStudent');
+
+    // EDITING A STUDENT
+    // view the edit form
+    Route::get('edit/{id}', function ($id) {
+        return view('editStudent', ['student' => Student::findOrFail($id)]);
+    });
+    //update
+    Route::post('update/{id}', 'updateStudent');
+
+    // delete
+    Route::delete('delete/{id}', 'destroyStudent');
+});
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
