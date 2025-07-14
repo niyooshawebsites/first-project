@@ -27,7 +27,8 @@ class AddStudentRequest extends FormRequest
             'age' => 'required|integer|min:18|max:30',
             'DOB' => 'required|date',
             'gender' => 'required|in:m,f,o',
-            'score' => 'required|integer|min:0|max:100'
+            'score' => 'required|integer|min:0|max:100',
+            'image' => 'nullable|image|mimes:png, jpg, gif|max:2048'
         ];
     }
 

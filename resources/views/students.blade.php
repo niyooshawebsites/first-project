@@ -22,6 +22,7 @@
                             <tr>
                                 <th>S.No</th>
                                 <th>ID</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Age</th>
@@ -37,6 +38,11 @@
                                     <td>{{ ($students->currentPage() - 1) * $students->perPage() + $loop->iteration }}</td>
                                     </td>
                                     <td>{{ $student->id }}</td>
+                                    <td>
+                                        @if ($student->image)
+                                            <img src="{{ asset('/storage/' . $student->image) }}" width="150" />
+                                        @endif
+                                    </td>
                                     <td>{{ $student->name }}</td>
                                     <td>{{ $student->email }}</td>
                                     <td>{{ $student->age }}</td>

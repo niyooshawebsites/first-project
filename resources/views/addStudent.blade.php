@@ -20,7 +20,7 @@
                 <div class="col-md-9 bg-light">
                     <article class="p-4">
                         <h1 class="display-4">Add Student</h1>
-                        <form action={{ URL('/students/create') }} method="POST">
+                        <form action={{ URL('/students/create') }} method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="name" class="mb-2">Name</label>
@@ -46,6 +46,10 @@
                                 <label for="score" class="mb-2">Score</label>
                                 <input type="number" name="score" id="score" class="form-control"
                                     placeholder="Enter score" value="{{ old('score') }}">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="image" class="mb-2">Image</label>
+                                <input type="file" name="image" id="image" class="form-control" accept="image/*">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="gender" class="mb-2">Gender</label>

@@ -7,6 +7,7 @@ use App\Http\Requests\AddStudentRequest;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -303,6 +304,11 @@ class StudentController extends Controller
     // creating a student controller function
     public function createStudent(AddStudentRequest $request)
     {
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('photos', 'public');
+        };
+
         $student = new Student();
         $student->name = $request->name;
         $student->email = $request->email;
@@ -310,6 +316,7 @@ class StudentController extends Controller
         $student->DOB = $request->DOB;
         $student->score = $request->score;
         $student->gender = $request->gender;
+        $student->image = $imagePath;
         $student->save();
 
         return redirect('students/all')->with('success', 'Student created successfully!');
@@ -332,7 +339,13 @@ class StudentController extends Controller
 
     public function destroyStudent(Request $request, $id)
     {
-        $result = Student::findOrFail($id)->delete();
+        $student = Student::findOrFail($id);
+        if ($student->image) {
+            Storage::disk('public')->delete($student->image);
+        }
+
+        $student->delete();
+
         return redirect('students/all');
     }
 }
