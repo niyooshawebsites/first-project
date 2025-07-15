@@ -4,6 +4,7 @@ use App\Http\Controllers\FirstTestController;
 use App\Http\Controllers\SecondTestController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UserController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -167,6 +168,9 @@ Route::prefix('students')->controller(StudentController::class)->group(function 
     // delete
     Route::delete('delete/{id}', 'destroyStudent');
 });
+
+Route::get('users', [UserController::class, 'index']);
+Route::get('teachers', [TeacherController::class, 'index']);
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

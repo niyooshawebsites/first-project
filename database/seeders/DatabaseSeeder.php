@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classes;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -26,7 +27,11 @@ class DatabaseSeeder extends Seeder
         //User::factory(150)->create();
 
         // create 100 students
-        User::factory()->count(100)->state(['user_type' => 'student'])->create();
-        User::factory()->count(50)->state(['user_type' => 'teacher'])->create();
+        // User::factory()->count(100)->state(['user_type' => 'student'])->create();
+        // User::factory()->count(50)->state(['user_type' => 'teacher'])->create();
+
+        // create 50 teachers
+        // Teacher::factory(50)->create();
+        Classes::factory(100)->create();
     }
 }

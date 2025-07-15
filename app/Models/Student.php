@@ -19,4 +19,9 @@ class Student extends Model
     {
         return $query->where('age', $age)->where('score', $score)->where('gender', $gender)->get();
     }
+
+    public function user_details()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
