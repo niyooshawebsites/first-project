@@ -291,6 +291,12 @@ class StudentController extends Controller
 
     // creating a crud application using the student model
     // reading all the data with search functionality
+
+    public function index()
+    {
+        return Student::with('class_details')->get();
+    }
+
     public function readStudents(Request $request)
     {
         $result = Student::when($request->search, function ($query) use ($request) {

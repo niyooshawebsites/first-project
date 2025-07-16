@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\FirstTestController;
 use App\Http\Controllers\SecondTestController;
 use App\Http\Controllers\StudentController;
@@ -149,6 +150,8 @@ Route::get('force-delete-trashed-students/{id}', [StudentController::class, 'for
 
 // creating a crud aplication using the student model
 Route::prefix('students')->controller(StudentController::class)->group(function () {
+    Route::get('/', 'index');
+
     Route::get('all', 'readStudents');
 
     // ADDING A STUDENT
@@ -169,8 +172,24 @@ Route::prefix('students')->controller(StudentController::class)->group(function 
     Route::delete('delete/{id}', 'destroyStudent');
 });
 
+Route::prefix('teachers')->controller(TeacherController::class)->group(function () {
+    Route::get('all', 'index');
+});
+
 Route::get('users', [UserController::class, 'index']);
 Route::get('teachers', [TeacherController::class, 'index']);
 
+Route::get('classes', [ClassesController::class, 'index']);
+
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
